@@ -5,9 +5,69 @@
     box-sizing: border-box;
 }
 
+:root {
+    --bg-color: #000000;
+    --text-color: #ffffff;
+    --dim-color: #1a1a1a;
+    --date-color: #333333;
+    --glow-color: rgba(255, 255, 255, 0.4);
+    --active-glow: rgba(255, 255, 255, 0.8);
+    --button-border: #222222;
+    --button-text: #444444;
+    --button-hover: #ffffff;
+    --menu-bg: rgba(8, 8, 8, 0.96);
+    --menu-border: rgba(255, 255, 255, 0.1);
+    --menu-surface: rgba(255, 255, 255, 0.03);
+}
+
+html[data-theme='ice'] {
+    --bg-color: #020a12;
+    --text-color: #dff7ff;
+    --dim-color: #23445a;
+    --date-color: #5b87a3;
+    --glow-color: rgba(126, 217, 255, 0.42);
+    --active-glow: rgba(126, 217, 255, 0.92);
+    --button-border: #1f4d66;
+    --button-text: #7fbfdc;
+    --button-hover: #dff7ff;
+    --menu-bg: rgba(3, 12, 18, 0.96);
+    --menu-border: rgba(126, 217, 255, 0.18);
+    --menu-surface: rgba(126, 217, 255, 0.06);
+}
+
+html[data-theme='violet'] {
+    --bg-color: #08050f;
+    --text-color: #f4eaff;
+    --dim-color: #34284b;
+    --date-color: #7a699d;
+    --glow-color: rgba(186, 126, 255, 0.4);
+    --active-glow: rgba(186, 126, 255, 0.92);
+    --button-border: #4c2f72;
+    --button-text: #bda3ff;
+    --button-hover: #f4eaff;
+    --menu-bg: rgba(11, 7, 18, 0.96);
+    --menu-border: rgba(186, 126, 255, 0.18);
+    --menu-surface: rgba(186, 126, 255, 0.06);
+}
+
+html[data-theme='ember'] {
+    --bg-color: #110603;
+    --text-color: #fff2e6;
+    --dim-color: #5a392c;
+    --date-color: #a67a5f;
+    --glow-color: rgba(255, 154, 86, 0.4);
+    --active-glow: rgba(255, 154, 86, 0.92);
+    --button-border: #7a4324;
+    --button-text: #ffbc8d;
+    --button-hover: #fff2e6;
+    --menu-bg: rgba(17, 8, 4, 0.96);
+    --menu-border: rgba(255, 154, 86, 0.18);
+    --menu-surface: rgba(255, 154, 86, 0.06);
+}
+
 body {
-    background-color: #000000;
-    color: #ffffff;
+    background-color: var(--bg-color);
+    color: var(--text-color);
     font-family: 'Orbitron', sans-serif;
     min-height: 100vh;
     display: flex;
@@ -32,13 +92,13 @@ body {
     justify-content: center;
     gap: clamp(5px, 2vw, 20px);
     font-size: clamp(0.5rem, 1.5vw, 0.9rem);
-    color: #1a1a1a;
+    color: var(--dim-color);
     letter-spacing: 2px;
 }
 
 .days-bar span.active {
-    color: #ffffff;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    color: var(--text-color);
+    text-shadow: 0 0 10px var(--active-glow);
     font-weight: bold;
 }
 
@@ -54,7 +114,7 @@ body {
     font-weight: 700;
     display: flex;
     align-items: center;
-    text-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
+    text-shadow: 0 0 25px var(--glow-color);
 }
 
 .clock-display span {
@@ -69,19 +129,19 @@ body {
     justify-content: center;
     gap: clamp(2px, 1vh, 10px);
     font-size: clamp(0.8rem, 2.5vw, 1.5rem);
-    color: #1a1a1a;
+    color: var(--dim-color);
 }
 
 .ampm-indicator div.active {
-    color: #ffffff;
-    text-shadow: 0 0 12px rgba(255, 255, 255, 0.8);
+    color: var(--text-color);
+    text-shadow: 0 0 12px var(--active-glow);
     font-weight: bold;
 }
 
 /* Date Display */
 .date-display {
     font-size: clamp(0.9rem, 2.5vw, 1.8rem);
-    color: #333;
+    color: var(--date-color);
     letter-spacing: clamp(2px, 1vw, 6px);
     text-transform: uppercase;
     text-align: center;
@@ -94,8 +154,8 @@ body {
 
 .btn {
     background: transparent;
-    border: 1px solid #222;
-    color: #444;
+    border: 1px solid var(--button-border);
+    color: var(--button-text);
     padding: clamp(5px, 1.5vw, 10px) clamp(10px, 2vw, 20px);
     cursor: pointer;
     font-family: 'Orbitron', sans-serif;
@@ -105,6 +165,84 @@ body {
 }
 
 .btn:hover {
-    border-color: #fff;
-    color: #fff;
+    border-color: var(--button-hover);
+    color: var(--button-hover);
+}
+
+.theme-menu {
+    position: fixed;
+    inset: 0;
+    display: none;
+    place-items: center;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(10px);
+    z-index: 20;
+}
+
+.theme-menu.is-open {
+    display: grid;
+}
+
+.theme-menu__panel {
+    width: min(92vw, 28rem);
+    padding: 1.25rem;
+    border: 1px solid var(--menu-border);
+    border-radius: 18px;
+    background: linear-gradient(180deg, var(--menu-bg), rgba(0, 0, 0, 0.92));
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
+}
+
+.theme-menu__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    gap: 1rem;
+}
+
+.theme-menu__header h2 {
+    font-size: 0.9rem;
+    letter-spacing: 0.22em;
+    color: var(--text-color);
+}
+
+.theme-menu__close {
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    border: 1px solid var(--menu-border);
+    color: var(--text-color);
+    background: var(--menu-surface);
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.theme-menu__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+}
+
+.theme-option {
+    min-height: 3rem;
+    border-radius: 12px;
+    border: 1px solid var(--menu-border);
+    background: var(--menu-surface);
+    color: var(--text-color);
+    letter-spacing: 0.12em;
+    cursor: pointer;
+}
+
+.theme-option.is-active {
+    box-shadow: 0 0 18px var(--glow-color);
+    border-color: var(--active-glow);
+}
+
+.theme-menu__hint {
+    margin-top: 0.9rem;
+    text-align: center;
+    color: var(--date-color);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+}
 }

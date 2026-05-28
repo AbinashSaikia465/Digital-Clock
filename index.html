@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Digital Clock</title>
+    <script>
+        const savedTheme = localStorage.getItem('digital-clock-theme');
+        if (savedTheme) {
+            document.documentElement.dataset.theme = savedTheme;
+        }
+    </script>
     <!-- Importing a digital-style font -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
@@ -41,6 +47,24 @@
         <!-- Controls -->
         <div class="controls">
             <button id="toggle-format" class="btn">SWITCH TO 24H</button>
+        </div>
+
+        <div id="theme-menu" class="theme-menu" hidden aria-hidden="true">
+            <div class="theme-menu__panel" role="dialog" aria-modal="true" aria-labelledby="theme-menu-title">
+                <div class="theme-menu__header">
+                    <h2 id="theme-menu-title">THEMES</h2>
+                    <button id="close-theme-menu" class="theme-menu__close" type="button" aria-label="Close theme menu">×</button>
+                </div>
+
+                <div class="theme-menu__grid">
+                    <button class="theme-option" type="button" data-theme-choice="midnight">MIDNIGHT</button>
+                    <button class="theme-option" type="button" data-theme-choice="ice">ICE</button>
+                    <button class="theme-option" type="button" data-theme-choice="violet">VIOLET</button>
+                    <button class="theme-option" type="button" data-theme-choice="ember">EMBER</button>
+                </div>
+
+                <p class="theme-menu__hint">Press Esc to close.</p>
+            </div>
         </div>
     </div>
 </body>
