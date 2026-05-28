@@ -2,7 +2,7 @@
 
 Welcome to the Digital Clock project! This document explains the technical implementation and the architectural choices.
 
-## 1. UI Overhaul (The "Pro" Look)
+## 1. UI Overhaul
 
 To match the 7-segment display aesthetic from the reference screenshot, we made several key changes:
 

@@ -1,5 +1,5 @@
 /**
- * Digital Clock - Pro Logic
+ * Digital Clock Logic
  */
 
 let is24HourFormat = false;
