@@ -1,0 +1,110 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #000000;
+    color: #ffffff;
+    font-family: 'Orbitron', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(15px, 3vh, 30px);
+    padding: 20px;
+    width: 100%;
+}
+
+/* Day of the Week Bar */
+.days-bar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: clamp(5px, 2vw, 20px);
+    font-size: clamp(0.5rem, 1.5vw, 0.9rem);
+    color: #1a1a1a;
+    letter-spacing: 2px;
+}
+
+.days-bar span.active {
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    font-weight: bold;
+}
+
+/* Clock Wrapper & Display */
+.clock-wrapper {
+    display: flex;
+    align-items: center;
+    gap: clamp(10px, 3vw, 30px);
+}
+
+.clock-display {
+    font-size: clamp(3.5rem, 18vw, 12rem);
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    text-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
+}
+
+.clock-display span {
+    min-width: 1.1ch;
+    text-align: center;
+}
+
+/* AM/PM Indicator */
+.ampm-indicator {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: clamp(2px, 1vh, 10px);
+    font-size: clamp(0.8rem, 2.5vw, 1.5rem);
+    color: #1a1a1a;
+}
+
+.ampm-indicator div.active {
+    color: #ffffff;
+    text-shadow: 0 0 12px rgba(255, 255, 255, 0.8);
+    font-weight: bold;
+}
+
+/* Date Display */
+.date-display {
+    font-size: clamp(0.9rem, 2.5vw, 1.8rem);
+    color: #333;
+    letter-spacing: clamp(2px, 1vw, 6px);
+    text-transform: uppercase;
+    text-align: center;
+}
+
+/* Controls */
+.controls {
+    margin-top: clamp(10px, 2vh, 30px);
+}
+
+.btn {
+    background: transparent;
+    border: 1px solid #222;
+    color: #444;
+    padding: clamp(5px, 1.5vw, 10px) clamp(10px, 2vw, 20px);
+    cursor: pointer;
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(0.6rem, 1.5vw, 0.8rem);
+    transition: all 0.3s ease;
+    border-radius: 4px;
+}
+
+.btn:hover {
+    border-color: #fff;
+    color: #fff;
+}
