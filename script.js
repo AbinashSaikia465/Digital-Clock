@@ -3,6 +3,40 @@
  */
 
 let is24HourFormat = false;
+const themeStorageKey = 'digital-clock-theme';
+const defaultTheme = 'midnight';
+
+const formatButton = document.getElementById('toggle-format');
+const themeMenu = document.getElementById('theme-menu');
+const closeThemeMenuButton = document.getElementById('close-theme-menu');
+const themeOptionButtons = document.querySelectorAll('.theme-option');
+
+function applyTheme(themeName) {
+    document.documentElement.dataset.theme = themeName;
+    localStorage.setItem(themeStorageKey, themeName);
+}
+
+function getActiveTheme() {
+    return document.documentElement.dataset.theme || localStorage.getItem(themeStorageKey) || defaultTheme;
+}
+
+function openThemeMenu() {
+    themeMenu.hidden = false;
+    themeMenu.setAttribute('aria-hidden', 'false');
+    themeMenu.classList.add('is-open');
+    themeOptionButtons.forEach((button) => {
+        button.classList.toggle('is-active', button.dataset.themeChoice === getActiveTheme());
+    });
+    document.querySelector(`.theme-option[data-theme-choice="${getActiveTheme()}"]`)?.focus();
+}
+
+function closeThemeMenu() {
+    themeMenu.classList.remove('is-open');
+    themeMenu.setAttribute('aria-hidden', 'true');
+    themeMenu.hidden = true;
+}
+
+applyTheme(getActiveTheme());
 
 function updateClock() {
     const now = new Date();
@@ -60,11 +94,35 @@ function updateClock() {
 }
 
 // Toggle Format Logic
-document.getElementById('toggle-format').addEventListener('click', () => {
+formatButton.addEventListener('click', () => {
     is24HourFormat = !is24HourFormat;
-    document.getElementById('toggle-format').textContent = 
+    formatButton.textContent = 
         is24HourFormat ? 'SWITCH TO 12H' : 'SWITCH TO 24H';
     updateClock(); // Update immediately
+});
+
+themeOptionButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+        applyTheme(button.dataset.themeChoice);
+        closeThemeMenu();
+    });
+});
+
+closeThemeMenuButton.addEventListener('click', closeThemeMenu);
+
+document.addEventListener('keydown', (event) => {
+    if (event.ctrlKey && event.shiftKey && event.key.toLowerCase() === 'm') {
+        event.preventDefault();
+        if (themeMenu.hidden) {
+            openThemeMenu();
+        } else {
+            closeThemeMenu();
+        }
+    }
+
+    if (event.key === 'Escape' && !themeMenu.hidden) {
+        closeThemeMenu();
+    }
 });
 
 // Start the Heartbeat
